@@ -75,17 +75,15 @@ TikTok uses DNS over HTTPS (DoH) and DNS over TLS (DoT) to resolve its domains i
 
    Click `Add`
 
-   Name and Description: `TikTok_ASN`
-
+   Now, create a new entry for each ASN in the [asns](https://raw.githubusercontent.com/M4jx/TikTokBlockList/main/asns) file:
+   
    State: `ON`
 
-   Source: `https://raw.githubusercontent.com/M4jx/TikTokBlockList/main/asns`
-
-   Header/Label: `TikTok_ASN`
+   Source: ASN_NUMBER_HERE
 
    Action: `Deny Both`
 
-   Update Frequency: `Once a week`
+   Update Frequency: `Never`
 
    Save
 
