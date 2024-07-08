@@ -14,47 +14,89 @@ TikTok uses DNS over HTTPS (DoH) and DNS over TLS (DoT) to resolve its domains i
 
 1. Install the `pfBlockerNG` package [tutorial](https://www.youtube.com/watch?v=oNo77CMoxUM).
 2. Add DNS Block List
+
    Navigate to `Firewall > pfBlockerNG> DNSBL > DNSBL Groups`
+
    Click `Add`
+
    Name and Description: `TikTok`
+
    State: `ON`
+
    Source: `https://raw.githubusercontent.com/M4jx/TikTokBlockList/main/hosts`
+
    Header/Label: `TikTok`
+
    Save
+
 3. Add IPv4 Block List
+
    Navigate to `Firewall > pfBlockerNG> IP > IPv4`
+
    Click `Add`
+
    Name and Description: `TikTok`
+
    State: `ON`
+
    Source: `https://raw.githubusercontent.com/M4jx/TikTokBlockList/main/ipv4s`
+
    Header/Label: `TikTok`
+
    Action: `Deny Both`
+
    Update Frequency: `Once a day`
+
    Save
+
 4. Add IPv6 Block List
+
    Navigate to `Firewall > pfBlockerNG> IP > IPv6`
+
    Click `Add`
+
    Name and Description: `TikTok`
+
    State: `ON`
+
    Source: `https://raw.githubusercontent.com/M4jx/TikTokBlockList/main/ipv6s`
+
    Header/Label: `TikTok`
+
    Action: `Deny Both`
+
    Update Frequency: `Once a day`
+
    Save
+
 5. Add ASN Block List
+
    Navigate to `Firewall > pfBlockerNG> IP > IPv4`
+
    Click `Add`
+
    Name and Description: `TikTok_ASN`
+
    State: `ON`
+
    Source: `https://raw.githubusercontent.com/M4jx/TikTokBlockList/main/asns`
+
    Header/Label: `TikTok_ASN`
+
    Action: `Deny Both`
+
    Update Frequency: `Once a week`
+
    Save
+
 6. Reload rules
+
    Navigate to `Firewall > pfBlockerNG > Update`
+
    Select 'Force' option: `Reload`
+
    Select 'Reload' option: `All`
+
 7. [Block Outbound DNS](#block-outbound-dns)
 8. [Block DoH/DoT](#block-dohdot)
 
@@ -66,13 +108,21 @@ You need to run a local DNS resolver/server to perform DNS queries. If you block
 
 1. Navigate to `Firewall > Rules > Floating`.
 2. Add new rule.
+
    Action: `Block`
+
    Quick: ✅
+
    Interface: `WAN`
+
    Direction: `Out`
+
    Address Family: `IPv4`
+
    Protocol: T`CP/UDP`
+
    Destination Port Range: `DNS (53)`
+
    Description: `Block Outbound DNS`
 
 ## Block DoH/DoT
