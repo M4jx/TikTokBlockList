@@ -1,6 +1,6 @@
 ################################################################
 # github.com/m4jx TikTok host file                             #
-# Last updated: 2024-07-08 00:00:10 (UTC)                      #
+# Last updated: 2024-07-08 00:00:32 (UTC)                      #
 ################################################################
 
 0.0.0.0 abtest-sg-tiktok.byteoversea.com
@@ -278,7 +278,7 @@
 0.0.0.0 applog.tiktokv.com
 0.0.0.0 artist.tiktok.com
 0.0.0.0 artists.tiktok.com
-0.0.0.0 awssg.l.byteoversea.net
+0.0.0.0 assg.l.byteoversea.net
 0.0.0.0 bds-sg.byteoversea.com
 0.0.0.0 bichon-gru1.byteoversea.net
 0.0.0.0 bichon-quic-bkk4.tiktokcdn.com
@@ -306,7 +306,7 @@
 0.0.0.0 bichon-quic-sgn1.tiktokcdn.com
 0.0.0.0 bichon-quic-sub1.byteoversea.net
 0.0.0.0 bichon-sub1.byteoversea.net
-0.0.0.0 bkbd-awsjp16-up-va.tiktokcdn.com
+0.0.0.0 bkbd-asjp16-up-va.tiktokcdn.com
 0.0.0.0 bkbd-awsjp16-up.muscdn.com
 0.0.0.0 bkbd-maliva16-up-va.tiktokcdn.com
 0.0.0.0 bkbd-maliva16-up.muscdn.com
@@ -1371,6 +1371,9 @@
 0.0.0.0 widget-va.tiktokv.com
 0.0.0.0 wj.byteoversea.com
 0.0.0.0 ws.byteoversea.net
+0.0.0.0 www.tiktok.com
+0.0.0.0 www.musical.ly
+0.0.0.0 www.tiktok.in
 0.0.0.0 xdevice-api.tiktokv.com
 0.0.0.0 xlog-va.byteoversea.com
 0.0.0.0 xlog-va.tiktokv.com
