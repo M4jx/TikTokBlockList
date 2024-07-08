@@ -10,7 +10,7 @@ TikTok uses DNS over HTTPS (DoH) and DNS over TLS (DoT) to resolve its domains i
 
 ## Usage
 
-#### pfSense
+### pfSense
 
 1. Install the `pfBlockerNG` package [tutorial](https://www.youtube.com/watch?v=oNo77CMoxUM).
 2. Add DNS Block List
@@ -58,11 +58,11 @@ TikTok uses DNS over HTTPS (DoH) and DNS over TLS (DoT) to resolve its domains i
 7. [Block Outbound DNS](#block-outbound-dns)
 8. [Block DoH/DoT](#block-dohdot)
 
-### Block Outbound DNS
+## Block Outbound DNS
 
 You need to run a local DNS resolver/server to perform DNS queries. If you block outbound DNS without a local DNS resolver, you won't be able to resolve any domains. If you're using pfBlockerNG for DNS blocking or piHole, you are likely already using a local DNS server on your box.
 
-#### pfSense
+### pfSense
 
 1. Navigate to `Firewall > Rules > Floating`.
 2. Add new rule.
@@ -75,9 +75,9 @@ You need to run a local DNS resolver/server to perform DNS queries. If you block
    Destination Port Range: `DNS (53)`
    Description: `Block Outbound DNS`
 
-### Block DoH/DoT
+## Block DoH/DoT
 
-#### pfSense
+### pfSense
 
 1. Navigate to `Firewall > pfBlockerNG > DNSBL > DNSBL SafeSearch.`
 2. Enable `DoH/DoT/DoQ Blocking`.
