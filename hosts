@@ -1,6 +1,6 @@
 ################################################################
 # github.com/m4jx TikTok host file                             #
-# Last updated: 2024-07-08 00:00:32 (UTC)                      #
+# Last updated: 2024-07-08 00:02:10 (UTC)                      #
 ################################################################
 
 0.0.0.0 abtest-sg-tiktok.byteoversea.com
@@ -1385,3 +1385,11 @@
 0.0.0.0 xlog16-normal-c-useast2a.tiktokv.com
 0.0.0.0 xzcs3zlph.com
 0.0.0.0 zero-rating.tiktok.com
+0.0.0.0 api16-core-useast2a.tiktokv.com
+0.0.0.0 api16-normal-useast2a.tiktokv.com
+0.0.0.0 sf16-va.tiktokcdn.com
+0.0.0.0 lf16-effectcdn.byteeffecttos-g.com
+0.0.0.0 lf-main-gecko-source.tiktokcdn.com
+0.0.0.0 p16-useast2a.tiktokcdn.com
+0.0.0.0 hotapi19-normal-useast2a.tiktokv.com
+0.0.0.0 whoami.akamai.net
