@@ -1,137 +1,56 @@
 # TikTokBlockList
 
-This collection of domain names, IP addresses and ASNs has been gathered from the TikTok mobile application. It is primarily intended for use in pfSense, OPNsense, Pi-hole, etc., to effectively block TikTok application network-wide.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Last Updated](https://img.shields.io/github/last-commit/M4jx/TikTokBlockList?label=updated)](https://github.com/M4jx/TikTokBlockList/commits/main)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
 
-The data was compiled by analyzing the TikTok application's traffic on mobile devices, performing packet inspections, and examining the TikTok API.
+Network-wide blocklists for the TikTok mobile app: domains, IPv4/IPv6 CIDRs, and ASNs.
 
-## Important Note ❗
+Drop these lists into pfSense, OPNsense, Pi-hole, AdGuard Home, or any blocklist-aware firewall to cut TikTok off your network.
 
-TikTok uses DNS over HTTPS (DoH) and DNS over TLS (DoT) to resolve its domains if the primary DNS resolver fails. Therefore, simply using a DNS blacklist is insufficient. You must also block all outbound traffic on port 53 TCP/UDP to prevent the application from using alternative DNS servers. Additionally, ensure you block DoH and DoT.
+Domains are derived from live mobile-traffic captures of the TikTok app (packet inspection & API analysis), so the list reflects what the app actually contacts.
 
-## Usage
+## Table of Contents
 
-### pfSense
+- [Good to Know](#good-to-know)
+- [Quick Setup](#quick-setup)
+- [Contributing](#contributing)
+- [License](#license)
 
-1. Install the `pfBlockerNG` package [tutorial](https://www.youtube.com/watch?v=oNo77CMoxUM).
-2. Add DNS Block List
+## Good to know
 
-   Navigate to `Firewall > pfBlockerNG> DNSBL > DNSBL Groups`
+TikTok can bypass simple DNS blocking by resolving its domains through DoH (DNS-over-HTTPS) and DoT (DNS-over-TLS). This means it may still obtain IP addresses for domains listed in a hosts blocklist. To ensure effective blocking, you should also include an IP-based blocklist in the `ipv4s` and `ipv6s` files to prevent connections to those resolved addresses.
 
-   Click `Add`
+## Quick Setup
 
-   Name and Description: `TikTok`
+Point your firewall / resolver at the raw URLs below. Each list goes into a different feature: DNS for `hosts`, IP blocklist for `ipv4s` and `ipv6s`, ASN blocklist for `asns`.
 
-   State: `ON`
+| List          | Raw URL                                                             | Where It Goes                                                          |
+| ------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Domains       | `https://raw.githubusercontent.com/M4jx/TikTokBlockList/main/hosts` | DNS blocklist (Pi-hole adlist, pfBlockerNG DNSBL, AdGuard Home filter) |
+| IPv4 CIDRs    | `https://raw.githubusercontent.com/M4jx/TikTokBlockList/main/ipv4s` | Firewall IPv4 alias / IP blocklist                                     |
+| IPv6 prefixes | `https://raw.githubusercontent.com/M4jx/TikTokBlockList/main/ipv6s` | Firewall IPv6 alias / IP blocklist                                     |
+| ASNs          | `https://raw.githubusercontent.com/M4jx/TikTokBlockList/main/asns`  | Firewall ASN blocklist (one entry per ASN)                             |
 
-   Source: `https://raw.githubusercontent.com/M4jx/TikTokBlockList/main/hosts`
+You must at least use `hosts` and `ipv4s` and `ipv6s` lists for optimal blocking.
 
-   Header/Label: `TikTok`
+#### Optional
 
-   Save
+In most cases, using the `hosts`, `ipv4s`, and `ipv6s` blocklists is sufficient to block the app.
+However, if you want to prevent TikTok from resolving its domains via DoT and DoH, you should also:
 
-3. Add IPv4 Block List
+1. Block Outbound DNS traffic (port 53).
+2. Block Outbound DoT traffic (port 853)
+3. Block DoH by blocking known DoH provider domains with an additional blocklist
 
-   Navigate to `Firewall > pfBlockerNG> IP > IPv4`
+## Contributing
 
-   Click `Add`
+Pull requests welcome. Useful additions:
 
-   Name and Description: `TikTok`
+- New domains observed via packet capture
+- New ByteDance/TikTok ASNs or CIDR ranges
+- False-positive reports (a domain that shouldn't be on the list)
 
-   State: `ON`
+## License
 
-   Source: `https://raw.githubusercontent.com/M4jx/TikTokBlockList/main/ipv4s`
-
-   Header/Label: `TikTok`
-
-   Action: `Deny Both`
-
-   Update Frequency: `Once a day`
-
-   Save
-
-4. Add IPv6 Block List
-
-   Navigate to `Firewall > pfBlockerNG> IP > IPv6`
-
-   Click `Add`
-
-   Name and Description: `TikTok`
-
-   State: `ON`
-
-   Source: `https://raw.githubusercontent.com/M4jx/TikTokBlockList/main/ipv6s`
-
-   Header/Label: `TikTok`
-
-   Action: `Deny Both`
-
-   Update Frequency: `Once a day`
-
-   Save
-
-5. Add ASN Block List
-
-   Navigate to `Firewall > pfBlockerNG> IP > IPv4`
-
-   Click `Add`
-
-   Now, create a new entry for each ASN in the [asns](https://raw.githubusercontent.com/M4jx/TikTokBlockList/main/asns) file:
-   
-   State: `ON`
-
-   Source: ASN_NUMBER_HERE
-
-   Action: `Deny Both`
-
-   Update Frequency: `Never`
-
-   Save
-
-6. Reload rules
-
-   Navigate to `Firewall > pfBlockerNG > Update`
-
-   Select 'Force' option: `Reload`
-
-   Select 'Reload' option: `All`
-
-7. [Block Outbound DNS](#block-outbound-dns)
-8. [Block DoH/DoT](#block-dohdot)
-
-## Block Outbound DNS
-
-You need to run a local DNS resolver/server to perform DNS queries. If you block outbound DNS without a local DNS resolver, you won't be able to resolve any domains. If you're using pfBlockerNG for DNS blocking or piHole, you are likely already using a local DNS server on your box.
-
-### pfSense
-
-1. Navigate to `Firewall > Rules > Floating`.
-2. Add new rule.
-
-   Action: `Block`
-
-   Quick: ✅
-
-   Interface: `WAN`
-
-   Direction: `Out`
-
-   Address Family: `IPv4`
-
-   Protocol: T`CP/UDP`
-
-   Destination Port Range: `DNS (53)`
-
-   Description: `Block Outbound DNS`
-
-## Block DoH/DoT
-
-### pfSense
-
-1. Navigate to `Firewall > pfBlockerNG > DNSBL > DNSBL SafeSearch.`
-2. Enable `DoH/DoT/DoQ Blocking`.
-3. Select all entries in `DoH/DoT/DoQ Blocking List`
-4. Click Save
-
-## Contribution
-
-Feel free to create a pull request to add more data to the list.
+[MIT](LICENSE)
